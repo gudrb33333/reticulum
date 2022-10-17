@@ -41,14 +41,14 @@ defmodule RetWeb.AuthChannel do
 
         Statix.increment("ret.emails.auth.attempted", 1)
 
-        if RetWeb.Email.enabled?() do
-          RetWeb.Email.auth_email(email, signin_args) |> Ret.Mailer.deliver_now()
-        end
+        #RetWeb.Email.enabled?() do
+        #  RetWeb.Email.auth_email(email, signin_args) |> Ret.Mailer.deliver_now()
+        #end
 
         Statix.increment("ret.emails.auth.sent", 1)
-      end
 
-      {:noreply, socket}
+        {:reply,{:ok, %{"url" => RetWeb.Email.auth_email(email, signin_args)}}, socket}
+      end
     else
       {:reply, {:error, "Already sent"}, socket}
     end

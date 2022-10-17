@@ -17,23 +17,23 @@ defmodule RetWeb.Email do
     email_body =
       if string_is_nil_or_empty(custom_login_body),
         do:
-          "To sign-in to #{app_name}, please visit the link below. If you did not make this request, please ignore this e-mail.\n\n #{
-            RetWeb.Endpoint.url()
-          }/?#{URI.encode_query(signin_args)}",
+          "#{RetWeb.Endpoint.url()}/?#{URI.encode_query(signin_args)}",
         else: add_magic_link_to_custom_login_body(custom_login_body, signin_args)
 
-    email =
-      new_email()
-      |> to(to_address)
-      |> from({app_full_name, from_address()})
-      |> subject(email_subject)
-      |> text_body(email_body)
+    # email =
+    #   new_email()
+    #   |> to(to_address)
+    #   |> from({app_full_name, from_address()})
+    #   |> subject(email_subject)
+    #   |> text_body(email_body)
 
-    if admin_email && !System.get_env("TURKEY_MODE") do
-      email |> put_header("Return-Path", admin_email)
-    else
-      email
-    end
+    # if admin_email && !System.get_env("TURKEY_MODE") do
+    #   email |> put_header("Return-Path", admin_email)
+    # else
+    #   email
+    # end
+
+    email_body
   end
 
   defp string_is_nil_or_empty(check_string) do
