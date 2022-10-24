@@ -61,17 +61,16 @@ defmodule RetWeb.Plugs.AddCSP do
 
     %{
       "default-src" => [
+        "*",
         "'none'"
       ],
       "img-src" => [
-        "'self'",
-        storage_url
-      ],
-      "media-src" => [
+        "*",
         "'self'",
         storage_url
       ],
       "style-src" => [
+        "*",
         "'self'",
         "'unsafe-inline'"
       ]
@@ -121,13 +120,15 @@ defmodule RetWeb.Plugs.AddCSP do
 
     %{
       "default-src" => [
-        "'none'"
+        "*"
       ],
       "manifest-src" => [
+        "*",
         "'self'",
         custom_rules[:manifest_src]
       ],
       "script-src" => [
+        "*",
         "'self'",
         "blob:",
         "'sha256-/S6PM16MxkmUT7zJN2lkEKFgvXR7yL4Z8PCrRrFu4Q8='",
@@ -149,18 +150,22 @@ defmodule RetWeb.Plugs.AddCSP do
         storage_url
       ],
       "child-src" => [
+        "*",
         "'self'",
         "blob:",
         custom_rules[:child_src]
       ],
       "worker-src" => [
+        "*",
         "'self'",
         "blob:",
         assets_url,
         custom_rules[:worker_src],
-        storage_url
+        storage_url,
+        "https://uploads-prod.reticulum.io"
       ],
       "font-src" => [
+        "*",
         "'self'",
         "https://cdn.aframe.io",
         "https://cdn.jsdelivr.net",
@@ -169,9 +174,11 @@ defmodule RetWeb.Plugs.AddCSP do
         assets_url,
         cors_proxy_url,
         custom_rules[:font_src],
-        storage_url
+        storage_url,
+        "https://uploads-prod.reticulum.io"
       ],
       "style-src" => [
+        "*",
         "'self'",
         "'unsafe-inline'",
         "https://cdn.jsdelivr.net",
@@ -179,9 +186,11 @@ defmodule RetWeb.Plugs.AddCSP do
         assets_url,
         cors_proxy_url,
         custom_rules[:style_src],
-        storage_url
+        storage_url,
+        "https://uploads-prod.reticulum.io"
       ],
       "connect-src" => [
+        "*",
         "'self'",
         "blob:",
         "data:",
@@ -198,9 +207,11 @@ defmodule RetWeb.Plugs.AddCSP do
         link_url,
         ret_direct_connect,
         storage_url,
-        thumbnail_url
+        thumbnail_url,
+        "https://uploads-prod.reticulum.io"
       ],
       "img-src" => [
+        "*",
         "'self'",
         "blob:",
         "data:",
@@ -213,9 +224,11 @@ defmodule RetWeb.Plugs.AddCSP do
         cors_proxy_url,
         custom_rules[:img_src],
         storage_url,
-        thumbnail_url
+        thumbnail_url,
+        "https://uploads-prod.reticulum.io"
       ],
       "media-src" => [
+        "*",
         "'self'",
         "*.googlevideo.com",
         "blob:",
@@ -228,6 +241,7 @@ defmodule RetWeb.Plugs.AddCSP do
         thumbnail_url
       ],
       "frame-src" => [
+        "*",
         "'self'",
         "https://docs.google.com",
         "https://player.vimeo.com",
@@ -235,9 +249,10 @@ defmodule RetWeb.Plugs.AddCSP do
         custom_rules[:frame_src]
       ],
       "base-uri" => [
-        "'none'"
+        "*"
       ],
       "form-action" => [
+        "*",
         "'self'",
         custom_rules[:form_action]
       ]
