@@ -29,7 +29,7 @@ defmodule Ret.MediaSearch do
   @max_face_count 60000
   @max_collection_face_count 200_000
   # see sketchfab bug about max_filesizes params broken
-  # @max_file_size_bytes 20 * 1024 * 1024 
+  # @max_file_size_bytes 20 * 1024 * 1024
   # @max_collection_file_size_bytes 100 * 1024 * 1024
 
   def search(%Ret.MediaSearchQuery{source: "scene_listings", cursor: cursor, filter: "featured", q: query}) do
@@ -156,7 +156,7 @@ defmodule Ret.MediaSearch do
           downloadable: true,
           count: @page_size,
           max_face_count: @max_face_count,
-          # max_filesizes: "gltf:#{@max_file_size_bytes}", 
+          # max_filesizes: "gltf:#{@max_file_size_bytes}",
           processing_status: :succeeded,
           cursor: cursor,
           categories: filter,
@@ -305,7 +305,9 @@ defmodule Ret.MediaSearch do
   def available?(:twitch), do: has_resolver_config?(:twitch_client_id)
 
   def sketchfab_search(query) do
-    with api_key when is_binary(api_key) <- resolver_config(:sketchfab_api_key) do
+    #with api_key when is_binary(api_key) <- resolver_config(:sketchfab_api_key) do
+      api_key = "c6a5043531f84399859847d52910bff0"
+
       res =
         retry_get_until_success(
           "https://api.sketchfab.com/v3/search?#{query}",
@@ -329,9 +331,9 @@ defmodule Ret.MediaSearch do
              entries: entries
            }}
       end
-    else
-      _ -> nil
-    end
+    #else
+    #  _ -> nil
+    #end
   end
 
   def bing_search(%Ret.MediaSearchQuery{source: "bing_videos", q: q, locale: locale}) when q == nil or q == "" do
