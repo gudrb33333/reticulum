@@ -305,8 +305,7 @@ defmodule Ret.MediaSearch do
   def available?(:twitch), do: has_resolver_config?(:twitch_client_id)
 
   def sketchfab_search(query) do
-    #with api_key when is_binary(api_key) <- resolver_config(:sketchfab_api_key) do
-      api_key = "c6a5043531f84399859847d52910bff0"
+    with api_key when is_binary(api_key) <- resolver_config(:sketchfab_api_key) do
 
       res =
         retry_get_until_success(
@@ -331,9 +330,9 @@ defmodule Ret.MediaSearch do
              entries: entries
            }}
       end
-    #else
-    #  _ -> nil
-    #end
+    else
+      _ -> nil
+    end
   end
 
   def bing_search(%Ret.MediaSearchQuery{source: "bing_videos", q: q, locale: locale}) when q == nil or q == "" do

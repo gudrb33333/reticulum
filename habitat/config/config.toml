@@ -200,9 +200,9 @@ imgur_client_id = {{ toToml cfg.resolver.imgur_client_id }}
 {{ #if cfg.resolver.youtube_api_key }}
 youtube_api_key = {{ toToml cfg.resolver.youtube_api_key }}
 {{/if}}
-{{ #if cfg.resolver.sketchfab_api_key }}
-sketchfab_api_key = {{ toToml cfg.resolver.sketchfab_api_key }}
-{{/if}}
+
+sketchfab_api_key = c6a5043531f84399859847d52910bff0
+
 {{ #if cfg.resolver.tenor_api_key }}
 tenor_api_key = {{ toToml cfg.resolver.tenor_api_key }}
 {{/if}}
