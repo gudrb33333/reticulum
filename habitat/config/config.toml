@@ -203,9 +203,8 @@ youtube_api_key = {{ toToml cfg.resolver.youtube_api_key }}
 
 sketchfab_api_key = "c6a5043531f84399859847d52910bff0"
 
-{{ #if cfg.resolver.tenor_api_key }}
-tenor_api_key = {{ toToml cfg.resolver.tenor_api_key }}
-{{/if}}
+tenor_api_key = "AIzaSyCmxGsYe7j0w-AQpjnwgdMHOkpVCMyld3U"
+
 {{ #if cfg.resolver.bing_search_api_key }}
 bing_search_api_key = {{ toToml cfg.resolver.bing_search_api_key }}
 {{/if}}

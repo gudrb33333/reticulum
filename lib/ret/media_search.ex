@@ -227,11 +227,19 @@ defmodule Ret.MediaSearch do
           key: api_key
         )
 
+      # res =
+      #   if filter == "trending" do
+      #     "https://api.tenor.com/v1/trending?#{query}"
+      #   else
+      #     "https://api.tenor.com/v1/search?#{query}"
+      #   end
+      #   |> retry_get_until_success()
+
       res =
-        if filter == "trending" do
-          "https://api.tenor.com/v1/trending?#{query}"
+        if is_nil(q) do
+          "https://tenor.googleapis.com/v2/featured?#{query}"
         else
-          "https://api.tenor.com/v1/search?#{query}"
+          "https://tenor.googleapis.com/v2/search?#{query}"
         end
         |> retry_get_until_success()
 
@@ -344,7 +352,7 @@ defmodule Ret.MediaSearch do
         )
 
       res =
-        "https://westus.api.cognitive.microsoft.com/bing/v7.0/videos/trending?#{query}"
+        "https://api.bing.microsoft.com/v7.0/videos/trending?#{query}"
         |> retry_get_until_success(headers: [{"Ocp-Apim-Subscription-Key", api_key}])
 
       case res do
@@ -780,19 +788,20 @@ defmodule Ret.MediaSearch do
   end
 
   defp tenor_api_result_to_entry(result) do
-    media_entry = result["media"] |> Enum.at(0)
+
+    {_, media_entry} = result["media_formats"] |> Enum.at(8)
 
     %{
       id: result["id"],
       type: "tenor_image",
       name: result["title"],
       attributions: %{},
-      url: media_entry["mp4"]["url"],
+      url: media_entry["url"],
       images: %{
         preview: %{
-          url: media_entry["tinymp4"]["url"],
-          width: media_entry["tinymp4"]["dims"] |> Enum.at(0),
-          height: media_entry["tinymp4"]["dims"] |> Enum.at(1),
+          url: media_entry["url"],
+          width: media_entry["dims"] |> Enum.at(0),
+          height: media_entry["dims"] |> Enum.at(1),
           type: "mp4"
         }
       }
